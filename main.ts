@@ -200,6 +200,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     false
     )
 })
+let projectile: Sprite = null
 let me: Sprite = null
 me = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -220,8 +221,30 @@ me = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 tiles.setCurrentTilemap(tilemap`level1`)
+scene.setBackgroundColor(8)
 controller.moveSprite(me)
-me.vx += 10
+me.vx += 100
 game.onUpdate(function () {
-	
+    if (Math.percentChance(50)) {
+        projectile = sprites.createProjectileFromSide(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 1 1 . . . . . . . 
+            . . . . . . . 1 1 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, randint(-70, -80), 50)
+        projectile.setPosition(151, randint(0, scene.screenWidth()))
+        projectile.setFlag(SpriteFlag.Ghost, true)
+    }
 })
